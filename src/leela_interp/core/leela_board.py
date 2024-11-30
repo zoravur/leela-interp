@@ -177,6 +177,117 @@ class LeelaBoard:
                     leela_board.push_san(move)
 
         return leela_board
+        
+    def _expanded_fen_to_fen(position_dict):
+        """
+        Convert a dictionary containing chess position information to FEN notation.
+        
+        Expected dictionary format:
+        {
+            'board': [
+                ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],  # 8th rank
+                ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],  # 7th rank
+                ['.', '.', '.', '.', '.', '.', '.', '.'],   # 6th rank
+                ['.', '.', '.', '.', '.', '.', '.', '.'],   # 5th rank
+                ['.', '.', '.', '.', '.', '.', '.', '.'],   # 4th rank
+                ['.', '.', '.', '.', '.', '.', '.', '.'],   # 3rd rank
+                ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],  # 2nd rank
+                ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']   # 1st rank
+            ],
+            'active_color': 'w',  # 'w' or 'b'
+            'castling': 'KQkq',   # combination of 'K', 'Q', 'k', 'q' or '-'
+            'en_passant': '-',    # square in algebraic notation or '-'
+            'halfmove_clock': 0,  # number of halfmoves since last pawn advance or capture
+            'fullmove_number': 1  # number of completed turns in the game
+        }
+        
+        Returns:
+            str: Valid FEN string
+        """
+        # Process board position
+        fen_parts = []
+        for rank in position_dict['board']:
+            empty_squares = 0
+            rank_notation = ''
+            
+            for square in rank:
+                if square == '.':
+                    empty_squares += 1
+                else:
+                    if empty_squares > 0:
+                        rank_notation += str(empty_squares)
+                        empty_squares = 0
+                    rank_notation += square
+            
+            if empty_squares > 0:
+                rank_notation += str(empty_squares)
+                
+            fen_parts.append(rank_notation)
+        
+        # Join all parts of the FEN string
+        board_str = '/'.join(fen_parts)
+        active_color = position_dict['active_color']
+        castling = position_dict['castling']
+        en_passant = position_dict['en_passant']
+        halfmove_clock = str(position_dict['halfmove_clock'])
+        fullmove_number = str(position_dict['fullmove_number'])
+        
+        # Combine all parts with spaces
+        fen = f"{board_str} {active_color} {castling} {en_passant} {halfmove_clock} {fullmove_number}"
+        
+        return fen
+
+    def from_expanded_fen(
+        cls,
+        expanded_fen: dict,
+    ):
+        """
+        Create a LeelaBoard from an Expanded FEN dictionary.
+
+        Expected dictionary format:
+        {
+            'board': [
+                ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],  # 8th rank
+                ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],  # 7th rank
+                ['.', '.', '.', '.', '.', '.', '.', '.'],   # 6th rank
+                ['.', '.', '.', '.', '.', '.', '.', '.'],   # 5th rank
+                ['.', '.', '.', '.', '.', '.', '.', '.'],   # 4th rank
+                ['.', '.', '.', '.', '.', '.', '.', '.'],   # 3rd rank
+                ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],  # 2nd rank
+                ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']   # 1st rank
+            ],
+            'active_color': 'w',  # 'w' or 'b'
+            'castling': 'KQkq',   # combination of 'K', 'Q', 'k', 'q' or '-'
+            'en_passant': '-',    # square in algebraic notation or '-'
+            'halfmove_clock': 0,  # number of halfmoves since last pawn advance or capture
+            'fullmove_number': 1  # number of completed turns in the game
+        }
+
+        
+        
+
+# Example usage
+example_position = {
+    'board': [
+        ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
+        ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
+        ['.', '.', '.', '.', '.', '.', '.', '.'],
+        ['.', '.', '.', '.', '.', '.', '.', '.'],
+        ['.', '.', '.', '.', '.', '.', '.', '.'],
+        ['.', '.', '.', '.', '.', '.', '.', '.'],
+        ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
+        ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
+    ],
+    'active_color': 'w',
+    'castling': 'KQkq',
+    'en_passant': '-',
+    'halfmove_clock': 0,
+    'fullmove_number': 1
+}
+
+# This will output the starting position FEN:
+# rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
+print(dict_to_fen(example_position))
 
     @classmethod
     def from_puzzle(cls, puzzle: pd.Series, fast: bool = True):

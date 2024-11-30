@@ -16,4 +16,5 @@ __pycache__
 *.zarr
 *.onnx
 *.pgn
+*.ipynb_checkpoints/
 lichess_db_puzzle.csv

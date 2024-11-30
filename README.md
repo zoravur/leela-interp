@@ -1,3 +1,8 @@
+Intermediate results here:
+https://docs.google.com/document/d/142EZblkbUE82yJoVbA0A3uGoxHBHDHf31ATxvq9tXlA/edit?tab=t.0
+
+**\*\***\*\***\*\***\*\*\*\***\*\***\*\***\*\*** ORIGINAL README **\*\***\*\*\*\***\*\***\*\*\*\***\*\***\*\*\*\***\*\***
+
 # Evidence of Learned Look-Ahead in a Chess-Playing Neural Network
 
 [**Project page**](https://leela-interp.github.io/) | [**Paper**](https://arxiv.org/abs/2406.00877)
@@ -17,6 +22,7 @@ other ways to filter or corrupt puzzles).
 ## Reproducing results
 
 If you want to regenerate the puzzle dataset, follow these steps:
+
 - Download `lichess_db_puzzle.csv.zst` from https://database.lichess.org/#puzzles.
   Then decompress using `zstd -d lichess_db_puzzle.csv.zst`.
 - Run `scripts/make_puzzles.py --generate` to generate the puzzle dataset.
@@ -25,6 +31,7 @@ If you want to regenerate the puzzle dataset, follow these steps:
 Alternatively, you can use the `interesting_puzzles.pkl` file we provide.
 
 Then compute the raw results using the other scripts:
+
 - For probing results, run `scripts/probing.py --main --random_model --n_seeds 5`
   (leave out `--random_model` if you don't want to run the baseline with probes trained
   on a randomly initialized model). You can use more or fewer seeds of course.
@@ -52,13 +59,15 @@ analyses based on these results. `act_patching.ipynb`, `puzzle_example.ipynb`, a
 Note that the notebooks assume the working directory is the root directory of this
 repository (or whereever else the `lc0.onnx`, `interesting_puzzles.pkl`, and
 `results/*` files are stored). You can set this in VS Code with
+
 ```json
 {
-    "jupyter.notebookFileRoot": "/path/to/dir"
+  "jupyter.notebookFileRoot": "/path/to/dir"
 }
 ```
 
 ## Using the codebase for follow-up work
+
 We recommend you start by taking a look at `notebooks/demo.ipynb`, which shows how to
 use some of the features of this codebase. From there, you can start exploring how the
 scripts and the main `leela_interp` package work.
@@ -70,14 +79,16 @@ optional---it contains code that we used or our experiments (e.g. probing),
 but it might not suit your needs.
 
 ## Known issues
+
 We've observed `NaN` outputs for Leela on MPS sometimes (but never on CPU or CUDA).
 
 # Citation
+
 If you find this codebase helpful for your research, please cite our paper:
 
 ```
 @misc{jenner2024evidence,
-      title={Evidence of Learned Look-Ahead in a Chess-Playing Neural Network}, 
+      title={Evidence of Learned Look-Ahead in a Chess-Playing Neural Network},
       author={Erik Jenner and Shreyas Kapur and Vasil Georgiev and Cameron Allen and Scott Emmons and Stuart Russell},
       year={2024},
       eprint={2406.00877},

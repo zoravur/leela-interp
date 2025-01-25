@@ -1,7 +1,13 @@
 Intermediate results here:
 https://docs.google.com/document/d/142EZblkbUE82yJoVbA0A3uGoxHBHDHf31ATxvq9tXlA/edit?tab=t.0
 
-**\*\***\*\***\*\***\*\*\*\***\*\***\*\***\*\*** ORIGINAL README **\*\***\*\*\*\***\*\***\*\*\*\***\*\***\*\*\*\***\*\***
+Done:
+- Start work on reproducing Fig 4 from follow up paper: https://openreview.net/pdf?id=Tl8EzmgsEp
+
+TODO:
+- Run activation patching code on more powerful GPU
+
+# ORIGINAL README BELOW
 
 # Evidence of Learned Look-Ahead in a Chess-Playing Neural Network
 
@@ -10,6 +16,8 @@ https://docs.google.com/document/d/142EZblkbUE82yJoVbA0A3uGoxHBHDHf31ATxvq9tXlA/
 ## Setup
 
 ```
+
+
 pip install -e .
 ```
 

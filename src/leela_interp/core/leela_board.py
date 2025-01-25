@@ -237,6 +237,7 @@ class LeelaBoard:
         
         return fen
 
+    @classmethod
     def from_expanded_fen(
         cls,
         expanded_fen: dict,
@@ -263,31 +264,29 @@ class LeelaBoard:
             'fullmove_number': 1  # number of completed turns in the game
         }
 
+        # Example usage
+        example_position = {
+            'board': [
+                ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
+                ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
+                ['.', '.', '.', '.', '.', '.', '.', '.'],
+                ['.', '.', '.', '.', '.', '.', '.', '.'],
+                ['.', '.', '.', '.', '.', '.', '.', '.'],
+                ['.', '.', '.', '.', '.', '.', '.', '.'],
+                ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
+                ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
+            ],
+            'active_color': 'w',
+            'castling': 'KQkq',
+            'en_passant': '-',
+            'halfmove_clock': 0,
+            'fullmove_number': 1
+        }
         
-        
-
-# Example usage
-example_position = {
-    'board': [
-        ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
-        ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
-        ['.', '.', '.', '.', '.', '.', '.', '.'],
-        ['.', '.', '.', '.', '.', '.', '.', '.'],
-        ['.', '.', '.', '.', '.', '.', '.', '.'],
-        ['.', '.', '.', '.', '.', '.', '.', '.'],
-        ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
-        ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
-    ],
-    'active_color': 'w',
-    'castling': 'KQkq',
-    'en_passant': '-',
-    'halfmove_clock': 0,
-    'fullmove_number': 1
-}
-
-# This will output the starting position FEN:
-# rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
-print(dict_to_fen(example_position))
+        # This will output the starting position FEN:
+        # rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
+        print(dict_to_fen(example_position))
+        """
 
     @classmethod
     def from_puzzle(cls, puzzle: pd.Series, fast: bool = True):
